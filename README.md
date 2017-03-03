@@ -11,7 +11,7 @@ This repository is to demonstrate a TestPyramid implementation, with different a
 The application we have is a simple coupon-validation app, which takes in a coupon-code for input and validates the coupon.
 
 The application itself has two functional components,
-1. Web application layer or simply the UI layer
-2. Service Layer
+* Web application layer or simply the UI layer
+* Service Layer
 
 

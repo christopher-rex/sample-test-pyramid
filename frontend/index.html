@@ -5,23 +5,42 @@
 	<title></title>
 
 <style>
+/* Base */
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol";
+	margin: 0 auto;
+	max-width: 700px;
+}
+
+/* Notice */
 #notice {
-	position: fixed;
-	top: 0;
+	border-radius: 0 0 4px 4px;
+	font-size: smaller;
 	left: calc(50% - 100px);
-	width: 200px;
-	background: yellow;
+	padding: 0.25em;
+	position: fixed;
 	text-align: center;
+	top: 0;
+	width: 200px;
 }
 
 #notice.success {
-	background: green;
+	background: #d6f5b9;
 }
 
 #notice.error {
-	background: red;
+	background: #ffc9c9;
 }
 
+/* Forms */
+label {
+	display: block;
+	margin: 1em 0;
+}
+
+/* Utilities */
 .hidden {
 	display: none;
 }

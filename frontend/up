@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if which python; then
+	python -m SimpleHTTPServer
+elif which ruby; then
+	ruby -run -ehttpd . -p8000
+elif which http-server; then
+	http-server
+else
+	echo 'No suitable server runtime found (please install a static HTTP server)'
+	exit 1
+fi

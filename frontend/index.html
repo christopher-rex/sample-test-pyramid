@@ -3,17 +3,68 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+
+<style>
+#notice {
+	position: fixed;
+	top: 0;
+	left: calc(50% - 100px);
+	width: 200px;
+	background: yellow;
+	text-align: center;
+}
+
+#notice.success {
+	background: green;
+}
+
+#notice.error {
+	background: red;
+}
+
+.hidden {
+	display: none;
+}
+</style>
 </head>
 <body>
 	<h1>Pyramid Systems</h1>
 
 	<h2>Login</h2>
 
-	<form action="">
+	<div id="notice" class="hidden"></div>
+
+	<form id="login-form" action="">
 		<label>Email <input type="email" required autofocus></label>
 		<label>Password <input type="password" required></label>
 
 		<button>Submit</button>
 	</form>
+
+	<script>
+	document.querySelector('#login-form').addEventListener('submit', event => {
+		event.preventDefault()
+
+		const [email, password] =
+			[].map.call(document.querySelectorAll('input'), node => node.value)
+
+		fetch('http://localhost:4567/login', {
+			method: 'post',
+			body: JSON.stringify({email, password})
+		}).then(response => {
+			if (response.status === 200) notify('success', 'Logged in successfully.')
+			else if (response.status === 401) notify('error', 'You are not authorized.')
+			else notify('error', 'A surprising error occurred.')
+		})
+	})
+
+	function notify(severity, message) {
+		const notice = document.querySelector('#notice')
+		notice.classList.remove('success', 'error')
+		notice.innerText = message
+		notice.classList.add(severity)
+		notice.classList.remove('hidden')
+	}
+	</script>
 </body>
 </html>

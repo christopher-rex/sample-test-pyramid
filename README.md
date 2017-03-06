@@ -8,7 +8,7 @@ This repository is to demonstrate a TestPyramid implementation, with different a
 
 ## Application under test
 
-The application we have is a scaled-down version of shopping-cart which has sign-in and coupon-validation features.
+The application we have is a scaled-down version of shopping-cart which has login and coupon-validation features.
 
 The application itself has two functional components,
 * Web application layer or simply the UI layer

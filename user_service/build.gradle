@@ -21,11 +21,11 @@ repositories {
 
 dependencies {
     // The production code uses Guava
-//    compile 'com.google.guava:guava:20.0'
     compile 'com.sparkjava:spark-core:2.5.5'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'org.jdbi:jdbi:2.78'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.16.1'
+    compile 'com.google.code.gson:gson:2.8.0'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

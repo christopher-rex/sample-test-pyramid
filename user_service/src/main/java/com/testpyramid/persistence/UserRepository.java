@@ -2,11 +2,13 @@ package com.testpyramid.persistence;
 
 import org.skife.jdbi.v2.DBI;
 
+import java.util.Map;
+
 public class UserRepository {
-    public String findNameById(String id) {
+    public Map<String, String> findByEmailAndPassword(String email, String password) {
         DBI dbi = new DBI("jdbc:sqlite:user_service.db");
         UserDao dao = dbi.open(UserDao.class);
 
-        return dao.findNameById(id);
+        return dao.findByEmailAndPassword(email, password);
     }
 }

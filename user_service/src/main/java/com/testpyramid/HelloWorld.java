@@ -1,10 +1,12 @@
 package com.testpyramid;
 
-import static spark.Spark.*;
+import com.testpyramid.persistence.UserRepository;
+
+import static spark.Spark.get;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        get("/hello", (req, res) -> "Hello World");
-        get("/ping", (req, res) -> "Pong");
+        get("/ping", (req, res) -> "pong");
+        get("/user", (req, res) -> new UserRepository().findNameById(""));
     }
 }

@@ -1,3 +1,5 @@
+package com.testpyramid;
+
 import static spark.Spark.*;
 
 public class HelloWorld {

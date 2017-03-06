@@ -7,12 +7,12 @@ import spark.Response;
 
 import java.util.Map;
 
-import static spark.Spark.get;
-import static spark.Spark.halt;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 public class HelloWorld {
     public static void main(String[] args) {
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+
         get("/ping", (req, res) -> "pong");
 
         post("/login", (Request req, Response res) -> {
@@ -26,7 +26,7 @@ public class HelloWorld {
                 halt(401);
             }
 
-            return "logged in";
+            return "{}";
         });
     }
 }

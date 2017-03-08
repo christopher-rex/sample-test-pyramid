@@ -1,0 +1,5 @@
+login_page:
+  login_form: '#login-form'
+    email_input: 'input[type="email"]'
+    password_input: 'input[type="password"]'
+    submit_button: 'button[name="submit"]'

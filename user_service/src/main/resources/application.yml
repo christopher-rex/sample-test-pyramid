@@ -1,0 +1,4 @@
+DB_NAME: user_service
+
+test:
+  DB_NAME: user_service_test

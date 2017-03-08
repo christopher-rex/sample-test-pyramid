@@ -10,12 +10,14 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="user_service_main" />
-    <orderEntry type="library" name="Gradle: com.sparkjava:spark-core:2.5.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.7.21" level="project" />
-    <orderEntry type="library" name="Gradle: org.jdbi:jdbi:2.78" level="project" />
-    <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.gojek:jfigaro:1.2.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.sparkjava:spark-core:2.5.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.jdbi:jdbi:2.78" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.7.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.xerial:sqlite-jdbc:3.16.1" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-server:9.3.6.v20151106" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-webapp:9.3.6.v20151106" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-server:9.3.6.v20151106" level="project" />

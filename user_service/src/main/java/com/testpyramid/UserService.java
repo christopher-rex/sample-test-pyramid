@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static spark.Spark.*;
 
-public class HelloWorld {
+public class UserService {
     public static void main(String[] args) {
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 

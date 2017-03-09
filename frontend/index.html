@@ -8,25 +8,28 @@
 </head>
 <body>
 	<h1>Pyramid Systems</h1>
-
-	<h2>Login</h2>
-
 	<div id="notice" class="hidden"></div>
 
-	<form id="login-form" action="">
-		<label>
-			Email
-			<input type="email" required autofocus>
-			<span class="validation-message error"></span>
-		</label>
-		<label>
-			Password
-			<input type="password" required>
-			<span class="validation-message error"></span>
-		</label>
+	<div id="output"></div>
 
-		<button name="submit">Submit</button>
-	</form>
+	<script type="x-tmpl-mustache" id="login-template">
+		<h2>Login</h2>
+
+		<form id="login-form" action="">
+			<label>
+				Email
+				<input type="email" required autofocus>
+				<span class="validation-message error"></span>
+			</label>
+			<label>
+				Password
+				<input type="password" required>
+				<span class="validation-message error"></span>
+			</label>
+
+			<button name="submit">Submit</button>
+		</form>
+	</script>
 
 	<script src="js/main.js"></script>
 </body>

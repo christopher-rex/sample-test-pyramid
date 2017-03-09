@@ -4,55 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Pyramid Systems</title>
 
-<style>
-/* Base */
-body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol";
-	margin: 0 auto;
-	max-width: 700px;
-}
-
-/* Notice */
-#notice {
-	border-radius: 0 0 4px 4px;
-	font-size: smaller;
-	left: calc(50% - 100px);
-	padding: 0.25em;
-	position: fixed;
-	text-align: center;
-	top: 0;
-	width: 200px;
-}
-
-#notice.success {
-	background: #d6f5b9;
-}
-
-#notice.error {
-	background: #ffc9c9;
-}
-
-.validation-message {
-	font-size: smaller;
-}
-
-.validation-message.error {
-	color: red;
-}
-
-/* Forms */
-label {
-	display: block;
-	margin: 1em 0;
-}
-
-/* Utilities */
-.hidden {
-	display: none;
-}
-</style>
+	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<h1>Pyramid Systems</h1>
@@ -76,37 +28,6 @@ label {
 		<button name="submit">Submit</button>
 	</form>
 
-	<script>
-	document.querySelector('#login-form').addEventListener('submit', event => {
-		event.preventDefault()
-
-		const [email, password] =
-			[].map.call(document.querySelectorAll('input'), node => node.value)
-
-		fetch('http://localhost:4567/login', {
-			method: 'post',
-			body: JSON.stringify({email, password})
-		}).then(response => {
-			if (response.status === 200) notify('success', 'Logged in successfully.')
-			else if (response.status === 401) notify('error', 'You are not authorized.')
-			else notify('error', 'A surprising error occurred.')
-		})
-	})
-
-	document.addEventListener('invalid', event => {
-		event.preventDefault()
-
-		event.target.parentNode.querySelector('.validation-message').innerText =
-			event.target.validationMessage
-	}, true)
-
-	function notify(severity, message) {
-		const notice = document.querySelector('#notice')
-		notice.classList.remove('success', 'error')
-		notice.innerText = message
-		notice.classList.add(severity)
-		notice.classList.remove('hidden')
-	}
-	</script>
+	<script src="js/main.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import java.util.Map;
 
 @RegisterMapper(DefaultMapper.class)
-public interface UserDao {
+public interface UserSql {
     @SqlQuery("SELECT * FROM users WHERE email = :email AND password = :password")
     Map<String, String> findByEmailAndPassword(@Bind("email") String email,
                                                @Bind("password") String password);

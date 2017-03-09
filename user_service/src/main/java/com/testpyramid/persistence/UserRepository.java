@@ -7,13 +7,13 @@ import org.skife.jdbi.v2.DBI;
 import java.util.Map;
 
 public class UserRepository {
-    public Map<String, String> findByEmailAndPassword(String email, String password) {
-        ApplicationConfiguration config = Figaro.configure(null);
-        DBI dbi = new DBI("jdbc:sqlite:" +
-                getClass().getClassLoader().getResource(
-                        config.getValueAsString("DB_NAME") + ".db"));
-        UserDao dao = dbi.open(UserDao.class);
+    private ApplicationConfiguration config = Figaro.configure(null);
+    private DBI dbi = new DBI("jdbc:sqlite:" +
+            getClass().getClassLoader().getResource(
+                    config.getValueAsString("DB_NAME") + ".db"));
 
-        return dao.findByEmailAndPassword(email, password);
+    public Map<String, String> findByEmailAndPassword(String email, String password) {
+        UserSql userSqlObject = dbi.open(UserSql.class);
+        return userSqlObject.findByEmailAndPassword(email, password);
     }
 }

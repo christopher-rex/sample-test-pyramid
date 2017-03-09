@@ -7,7 +7,7 @@ function route() {
 	if (!templateNode) return
 
 	document.querySelector('#output').innerHTML = templateNode.innerHTML
-	init[currentRoute]()
+	init[currentRoute] && init[currentRoute]()
 	// TODO cleanup event listeners
 }
 
@@ -26,7 +26,10 @@ const init = {
 				method: 'post',
 				body: JSON.stringify({email, password})
 			}).then(response => {
-				if (response.status === 200) notify('success', 'Logged in successfully.')
+				if (response.status === 200) {
+					notify('success', 'Logged in successfully.')
+					location.hash = 'coupon'
+				}
 				else if (response.status === 401) notify('error', 'You are not authorized.')
 				else notify('error', 'A surprising error occurred.')
 			})

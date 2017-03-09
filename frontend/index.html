@@ -34,6 +34,14 @@ body {
 	background: #ffc9c9;
 }
 
+.validation-message {
+	font-size: smaller;
+}
+
+.validation-message.error {
+	color: red;
+}
+
 /* Forms */
 label {
 	display: block;
@@ -54,8 +62,16 @@ label {
 	<div id="notice" class="hidden"></div>
 
 	<form id="login-form" action="">
-		<label>Email <input type="email" required autofocus></label>
-		<label>Password <input type="password" required></label>
+		<label>
+			Email
+			<input type="email" required autofocus>
+			<span class="validation-message error"></span>
+		</label>
+		<label>
+			Password
+			<input type="password" required>
+			<span class="validation-message error"></span>
+		</label>
 
 		<button name="submit">Submit</button>
 	</form>
@@ -76,6 +92,13 @@ label {
 			else notify('error', 'A surprising error occurred.')
 		})
 	})
+
+	document.addEventListener('invalid', event => {
+		event.preventDefault()
+
+		event.target.parentNode.querySelector('.validation-message').innerText =
+			event.target.validationMessage
+	}, true)
 
 	function notify(severity, message) {
 		const notice = document.querySelector('#notice')

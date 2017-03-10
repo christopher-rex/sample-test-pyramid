@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.testpyramid.HttpResult;
 import com.testpyramid.persistence.UserRepository;
 import org.eclipse.jetty.http.HttpStatus;
-import org.junit.Before;
 import org.junit.Test;
 import spark.Request;
 
@@ -18,19 +17,14 @@ import static org.mockito.Mockito.*;
 public class LoginHandlerTest {
     private final Gson gson = new Gson();
     private UserRepository mockUserRepository = mock(UserRepository.class);
-    private Map<String, String> defaultResultSet = new HashMap<>();
-
-    @Before
-    public void setUp() throws Exception {
-        defaultResultSet.put("name", "tom");
-        defaultResultSet.put("active", "false");
-    }
 
     @Test
     public void getsParametersFromRequestBody() throws Exception {
         String email = "mail@example.com";
         String password = "password1";
         Request mockRequest = mockRequest(email, password);
+        when(mockUserRepository.findByEmailAndPassword(email, password))
+                .thenReturn(null);
 
         LoginHandler handler = new LoginHandler(mockUserRepository);
         handler.handle(mockRequest);

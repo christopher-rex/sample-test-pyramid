@@ -19,6 +19,11 @@ public class TestDataHelper {
 
     }
 
+    public static void createUser(String name, String email, String password, String isActive) {
+        Handle h = dbi.open();
+        h.execute("INSERT INTO users VALUES ('" + UUID.randomUUID() + "', '" + name + "', '" + email + "', '" + password + "', '" + isActive + "')");
+    }
+
     public static void cleanDb() {
         Handle h = dbi.open();
         h.execute("DELETE FROM users");

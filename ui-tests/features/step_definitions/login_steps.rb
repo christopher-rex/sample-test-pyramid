@@ -7,7 +7,11 @@ When(/^I click on login$/) do
   login_page.login_form.submit_button.click_button
 end
 
-Then(/^I see the (?:error |)message "([^"]*)"$/) do |expected_text|
+Then(/^I see the (?:error |)notification "([^"]*)"$/) do |expected_text|
+  expect(login_page.login_form.notice).to have_text expected_text
+end
+
+Then(/^I see text "([^"]*)"$/) do |expected_text|
   expect(Capybara.page).to have_text expected_text
 end
 

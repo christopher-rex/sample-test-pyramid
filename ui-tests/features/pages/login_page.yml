@@ -3,3 +3,4 @@ login_page:
     email_input: 'input[type="email"]'
     password_input: 'input[type="password"]'
     submit_button: 'button[name="submit"]'
+    notice: '#notice'

@@ -15,7 +15,7 @@ public class TestDataHelper {
 
     public static void createUser() {
         Handle h = dbi.open();
-        h.execute("INSERT INTO users VALUES ('" + UUID.randomUUID() + "', 'Test User', 'test@test.com', 'password')");
+        h.execute("INSERT INTO users VALUES ('" + UUID.randomUUID() + "', 'Test User', 'test@test.com', 'password', 'true')");
 
     }
 

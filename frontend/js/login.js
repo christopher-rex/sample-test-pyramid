@@ -15,12 +15,21 @@ const login = (_ => {
 			}).then(response => {
 				if (response.status === 200) {
 					notify('success', 'Logged in successfully.')
-					location.hash = 'coupon'
+					return response.json()
 				}
+
 				else if (response.status === 401) {
 					notify('error', 'You are not authorized.')
+					return new Promise(resolve => resolve())
 				}
+
 				else notify('error', 'A surprising error occurred.')
+				return new Promise(resolve => resolve())
+			}).then(json => {
+				if (json) {
+					auth.login(json)
+					location.hash = 'coupon'
+				}
 			})
 		},
 

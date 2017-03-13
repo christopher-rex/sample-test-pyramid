@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RegisterMapper(DefaultMapper.class)
 public interface UserSql {
-    @SqlQuery("SELECT id, name, email, active, auth_token " +
+    @SqlQuery("SELECT id, name, email, active, auth_token, email_verified " +
             "FROM users " +
             "WHERE email = :email AND password = :password")
     Map<String, String> findByEmailAndPassword(@Bind("email") String email,

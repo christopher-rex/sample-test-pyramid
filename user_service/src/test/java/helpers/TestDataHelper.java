@@ -18,13 +18,14 @@ public class TestDataHelper {
 
     public static void createUser(String name, String email, String password, String isActive) {
         dbi.withHandle(handle -> {
-            handle.execute("INSERT INTO users (id, auth_token, name, email, password, active) VALUES ('"
+            handle.execute("INSERT INTO users (id, auth_token, name, email, password, active, email_verified) VALUES ('"
                     + UUID.randomUUID() + "', '"
                     + UUID.randomUUID() + "', '"
                     + name + "', '"
                     + email + "', '"
                     + password + "', '"
-                    + isActive + "')");
+                    + isActive + "', " +
+                    "'true')");
             return null;
         });
     }

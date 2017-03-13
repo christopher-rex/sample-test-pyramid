@@ -13,14 +13,20 @@ describe('Router', () => {
 		'login-template': 'some html'
 	}
 
+	let route
+
+	afterEach(() => {
+		window.removeEventListener('hashchange', route)
+	})
+
 	it('initialises the current route', () => {
-		router.init(handlers, templates, outputElement)
+		route = router.init(handlers, templates, outputElement)
 
 		expect(handlers.login.init).toHaveBeenCalled()
 	})
 
 	it('cleans up the previous route', () => {
-		const route = router.init(handlers, templates, outputElement)
+		route = router.init(handlers, templates, outputElement)
 		route()
 
 		expect(handlers.login.cleanup).toHaveBeenCalled()

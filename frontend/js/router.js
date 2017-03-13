@@ -1,4 +1,4 @@
-const route = {
+const router = {
 	init(routeHandlers) {
 		let cleanup
 
@@ -15,11 +15,13 @@ const route = {
 			document.querySelector('#output').innerHTML = templateNode.innerHTML
 
 			const currentRouteHandler = routeHandlers[currentRoute]
-			cleanup = routeHandlers[currentRouteHandler]
+			cleanup = currentRouteHandler && currentRouteHandler.cleanup
 			currentRouteHandler && currentRouteHandler.init()
 		}
 
 		window.addEventListener('hashchange', route)
 		route()
+
+		return route
 	}
 }

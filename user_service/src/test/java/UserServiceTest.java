@@ -2,6 +2,7 @@ import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpResponse;
 import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
+import com.google.gson.Gson;
 import com.testpyramid.UserService;
 import helpers.TestDataHelper;
 import org.junit.Before;
@@ -9,9 +10,15 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import spark.servlet.SparkApplication;
 
-import static org.junit.Assert.*;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class UserServiceTest {
+    private static final Gson gson = new Gson();
+
     public static class UserServiceTestSparkApplication implements SparkApplication {
         @Override
         public void init() {
@@ -39,13 +46,22 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testLoginSucceedsForValidUser() throws Exception {
-        TestDataHelper.createUser("Tom", "tom@test.com", "pwd", "true");
+    public void testLoginSucceedsForValidUserAndReturnsAllUserDetailsExceptPassword() throws Exception {
+        String name = "Tom";
+        String email = "tom@test.com";
+        String active = "true";
+        TestDataHelper.createUser(name, email, "pwd", active);
 
         PostMethod post = testServer.post("/login", "{\"email\":\"tom@test.com\",\"password\":\"pwd\"}", true);
         HttpResponse httpResponse = testServer.execute(post);
+
         assertEquals(200, httpResponse.code());
-        assertEquals("Tom", new String(httpResponse.body()));
+
+        Map<String, String> responseBody = gson.fromJson(new String(httpResponse.body()), Map.class);
+        assertEquals(name, responseBody.get("name"));
+        assertEquals(email, responseBody.get("email"));
+        assertEquals(active, responseBody.get("active"));
+        assertFalse(responseBody.containsKey("password"));
     }
 
     @Test

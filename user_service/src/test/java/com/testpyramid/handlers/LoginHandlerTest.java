@@ -33,18 +33,22 @@ public class LoginHandlerTest {
     }
 
     @Test
-    public void returnsUserDetailsIfUserFound() throws Exception {
+    public void returnsAllUserDetailsIfUserFound() throws Exception {
         String email = "email";
         String password = "password";
+        String name = "your name";
+        String active = "true";
         Request mockRequest = mockRequest(email, password);
         when(mockUserRepository.findByEmailAndPassword(email, password))
-                .thenReturn(createResultMap("your name", "true"));
+                .thenReturn(createResultMap(name, email, active));
 
         LoginHandler handler = new LoginHandler(mockUserRepository);
-        HttpResult<String> result = handler.handle(mockRequest);
+        HttpResult<Map<String, String>> result = handler.handle(mockRequest);
 
         assertTrue(result.isSuccess());
-        assertEquals("your name", result.getValue());
+        assertEquals(name, result.getValue().get("name"));
+        assertEquals(active, result.getValue().get("active"));
+        assertEquals(email, result.getValue().get("email"));
     }
 
     @Test
@@ -53,7 +57,7 @@ public class LoginHandlerTest {
                 .thenReturn(null);
 
         LoginHandler handler = new LoginHandler(mockUserRepository);
-        HttpResult<String> result = handler.handle(mockRequest("", ""));
+        HttpResult<Map<String, String>> result = handler.handle(mockRequest("", ""));
 
         assertFalse(result.isSuccess());
         assertEquals(HttpStatus.UNAUTHORIZED_401, result.getStatusCode());
@@ -66,10 +70,10 @@ public class LoginHandlerTest {
         String password = "password";
 
         when(mockUserRepository.findByEmailAndPassword(email, password))
-                .thenReturn(createResultMap(email, "false"));
+                .thenReturn(createResultMap("some name", email, "false"));
 
         LoginHandler handler = new LoginHandler(mockUserRepository);
-        HttpResult<String> result = handler.handle(mockRequest(email, password));
+        HttpResult<Map<String, String>> result = handler.handle(mockRequest(email, password));
 
         assertFalse(result.isSuccess());
         assertEquals(HttpStatus.UNAUTHORIZED_401, result.getStatusCode());
@@ -88,9 +92,10 @@ public class LoginHandlerTest {
         return mockRequest;
     }
 
-    private Map<String, String> createResultMap(String name, String active) {
+    private Map<String, String> createResultMap(String name, String email, String active) {
         Map<String, String> resultMap = new HashMap<>();
         resultMap.put("name", name);
+        resultMap.put("email", email);
         resultMap.put("active", active);
         return resultMap;
     }

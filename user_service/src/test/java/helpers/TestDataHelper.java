@@ -3,7 +3,6 @@ package helpers;
 import com.gojek.ApplicationConfiguration;
 import com.gojek.Figaro;
 import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
 
 import java.util.UUID;
 
@@ -14,18 +13,26 @@ public class TestDataHelper {
                     config.getValueAsString("DB_NAME") + ".db"));
 
     public static void createUser() {
-        Handle h = dbi.open();
-        h.execute("INSERT INTO users VALUES ('" + UUID.randomUUID() + "', 'Test User', 'test@test.com', 'password', 'true')");
-
+        createUser("Test User", "test@test.com", "password", "true");
     }
 
     public static void createUser(String name, String email, String password, String isActive) {
-        Handle h = dbi.open();
-        h.execute("INSERT INTO users VALUES ('" + UUID.randomUUID() + "', '" + name + "', '" + email + "', '" + password + "', '" + isActive + "')");
+        dbi.withHandle(handle -> {
+            handle.execute("INSERT INTO users (id, auth_token, name, email, password, active) VALUES ('"
+                    + UUID.randomUUID() + "', '"
+                    + UUID.randomUUID() + "', '"
+                    + name + "', '"
+                    + email + "', '"
+                    + password + "', '"
+                    + isActive + "')");
+            return null;
+        });
     }
 
     public static void cleanDb() {
-        Handle h = dbi.open();
-        h.execute("DELETE FROM users");
+        dbi.withHandle(h -> {
+            h.execute("DELETE FROM users");
+            return null;
+        });
     }
 }

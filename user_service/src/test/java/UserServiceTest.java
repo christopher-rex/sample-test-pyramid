@@ -61,6 +61,8 @@ public class UserServiceTest {
         assertEquals(name, responseBody.get("name"));
         assertEquals(email, responseBody.get("email"));
         assertEquals(active, responseBody.get("active"));
+        assertTrue(responseBody.containsKey("id"));
+        assertTrue(responseBody.containsKey("auth_token"));
         assertFalse(responseBody.containsKey("password"));
     }
 

@@ -23,6 +23,10 @@ body {
 	background: #d6f5b9;
 }
 
+#notice.warning {
+	background: #ffe3cf;
+}
+
 #notice.error {
 	background: #ffc9c9;
 }

@@ -28,6 +28,11 @@ const login = (_ => {
 			}).then(json => {
 				if (json) {
 					auth.login(json)
+
+					if (json.email_verified !== 'true') {
+						notify('warning', 'Please confirm your email')
+					}
+
 					location.hash = 'coupon'
 				}
 			})

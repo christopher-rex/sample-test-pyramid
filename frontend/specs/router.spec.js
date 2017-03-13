@@ -6,31 +6,21 @@ describe('Router', () => {
 		}
 	}
 
-	let outputElement, templateElement
+	const outputElement = document.createElement('div')
+	outputElement.id = 'output'
 
-	beforeEach(() => {
-		outputElement = document.createElement('div')
-		outputElement.id = 'output'
-		document.body.appendChild(outputElement)
-
-		templateElement = document.createElement('div')
-		templateElement.id = 'login-template'
-		document.body.appendChild(templateElement)
-	})
-
-	afterEach(() => {
-		document.body.removeChild(outputElement)
-		document.body.removeChild(templateElement)
-	})
+	const templates = {
+		'login-template': 'some html'
+	}
 
 	it('initialises the current route', () => {
-		router.init(handlers)
+		router.init(handlers, templates, outputElement)
 
 		expect(handlers.login.init).toHaveBeenCalled()
 	})
 
 	it('cleans up the previous route', () => {
-		const route = router.init(handlers)
+		const route = router.init(handlers, templates, outputElement)
 		route()
 
 		expect(handlers.login.cleanup).toHaveBeenCalled()

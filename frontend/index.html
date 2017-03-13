@@ -51,7 +51,12 @@
 	<script src="js/login.js"></script>
 
 	<script>
-		router.init({ login })
+		const templates = [].reduce.call(document.querySelectorAll('[id$=template]'), (result, element) => {
+			result[element.id] = element.innerHTML
+			return result
+		}, {})
+		router.init({ login }, templates, document.querySelector('#output'))
+
 		const notify = notifier.init(document.querySelector('#notice'))
 	</script>
 </body>

@@ -1,5 +1,5 @@
 const router = {
-	init(routeHandlers) {
+	init(routeHandlers, templates, outputElement) {
 		let cleanup
 
 		function route(event) {
@@ -8,11 +8,11 @@ const router = {
 
 			if (cleanup) cleanup()
 
-			const templateNode = document.querySelector(`#${currentRoute}-template`)
+			const templateHtml = templates[`${currentRoute}-template`]
 
-			if (!templateNode) return
+			if (!templateHtml) return
 
-			document.querySelector('#output').innerHTML = templateNode.innerHTML
+			outputElement.innerHTML = templateHtml
 
 			const currentRouteHandler = routeHandlers[currentRoute]
 			cleanup = currentRouteHandler && currentRouteHandler.cleanup

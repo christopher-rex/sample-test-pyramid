@@ -25,11 +25,11 @@ const login = (_ => {
 
 				else notify('error', 'A surprising error occurred.')
 				return new Promise(resolve => resolve())
-			}).then(json => {
-				if (json) {
-					auth.login(json)
+			}).then(user => {
+				if (user) {
+					auth.login(user)
 
-					if (json.email_verified !== 'true') {
+					if (user.email_verified !== 'true') {
 						notify('warning', 'Please confirm your email')
 					}
 

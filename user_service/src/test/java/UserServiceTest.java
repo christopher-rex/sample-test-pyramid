@@ -34,7 +34,7 @@ public class UserServiceTest {
             new SparkServer<>(UserServiceTestSparkApplication.class, config.getValueAsInt("PORT"));
 
     @Before
-    public void setUp(){
+    public void setUp() {
         TestDataHelper.cleanDb();
     }
 
@@ -53,18 +53,19 @@ public class UserServiceTest {
         String name = "Tom";
         String email = "tom@test.com";
         String active = "true";
-        TestDataHelper.createUser(name, email, "pwd", active);
+        String emailVerified = "true";
+        TestDataHelper.createUser(name, email, "pwd", active, emailVerified);
 
         PostMethod post = testServer.post("/login", "{\"email\":\"tom@test.com\",\"password\":\"pwd\"}", true);
         HttpResponse httpResponse = testServer.execute(post);
 
         assertEquals(200, httpResponse.code());
 
-        Map<String, String> responseBody = gson.fromJson(new String(httpResponse.body()), Map.class);
+        Map responseBody = gson.fromJson(new String(httpResponse.body()), Map.class);
         assertEquals(name, responseBody.get("name"));
         assertEquals(email, responseBody.get("email"));
         assertEquals(active, responseBody.get("active"));
-        assertEquals("true", responseBody.get("email_verified"));
+        assertEquals(emailVerified, responseBody.get("email_verified"));
         assertTrue(responseBody.containsKey("id"));
         assertTrue(responseBody.containsKey("auth_token"));
         assertFalse(responseBody.containsKey("password"));
@@ -81,13 +82,36 @@ public class UserServiceTest {
 
     @Test
     public void testLoginFailsIfUserNotActive() throws Exception {
-        TestDataHelper.createUser("Tom", "tom@test.com", "pwd", "false");
+        TestDataHelper.createUser("Tom", "tom@test.com", "pwd", "false", "true");
 
         PostMethod post = testServer.post("/login", "{\"email\":\"tom@test.com\",\"password\":\"pwd\"}", true);
         HttpResponse httpResponse = testServer.execute(post);
         assertEquals(401, httpResponse.code());
         assertEquals("Unauthorized", httpResponse.message());
         assertTrue((httpResponse.body()).length == 0);
+    }
+
+    @Test
+    public void testLoginSucceedsForActiveButNotEmailVerifiedUser() throws Exception {
+        String name = "Tom";
+        String email = "tom@test.com";
+        String active = "true";
+        String emailVerified = "false";
+        TestDataHelper.createUser(name, email, "pwd", active, emailVerified);
+
+        PostMethod post = testServer.post("/login", "{\"email\":\"tom@test.com\",\"password\":\"pwd\"}", true);
+        HttpResponse httpResponse = testServer.execute(post);
+
+        assertEquals(200, httpResponse.code());
+
+        Map responseBody = gson.fromJson(new String(httpResponse.body()), Map.class);
+        assertEquals(name, responseBody.get("name"));
+        assertEquals(email, responseBody.get("email"));
+        assertEquals(active, responseBody.get("active"));
+        assertEquals(emailVerified, responseBody.get("email_verified"));
+        assertTrue(responseBody.containsKey("id"));
+        assertTrue(responseBody.containsKey("auth_token"));
+        assertFalse(responseBody.containsKey("password"));
     }
 
 }

@@ -13,10 +13,10 @@ public class TestDataHelper {
                     config.getValueAsString("DB_NAME") + ".db"));
 
     public static void createUser() {
-        createUser("Test User", "test@test.com", "password", "true");
+        createUser("Test User", "test@test.com", "password", "true", "true");
     }
 
-    public static void createUser(String name, String email, String password, String isActive) {
+    public static void createUser(String name, String email, String password, String isActive, String isEmailVerified) {
         dbi.withHandle(handle -> {
             handle.execute("INSERT INTO users (id, auth_token, name, email, password, active, email_verified) VALUES ('"
                     + UUID.randomUUID() + "', '"
@@ -24,8 +24,8 @@ public class TestDataHelper {
                     + name + "', '"
                     + email + "', '"
                     + password + "', '"
-                    + isActive + "', " +
-                    "'true')");
+                    + isActive + "', '"
+                    + isEmailVerified + "')");
             return null;
         });
     }

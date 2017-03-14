@@ -1,0 +1,6 @@
+DB_NAME: coupon_service
+PORT: 5000
+
+test:
+  DB_NAME: coupon_service_test
+  PORT: 5001

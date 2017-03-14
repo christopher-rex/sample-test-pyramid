@@ -1,4 +1,6 @@
 DB_NAME: user_service
+PORT: 4567
 
 test:
   DB_NAME: user_service_test
+  PORT: 4568

@@ -2,6 +2,8 @@ import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpResponse;
 import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
+import com.gojek.ApplicationConfiguration;
+import com.gojek.Figaro;
 import com.google.gson.Gson;
 import com.testpyramid.UserService;
 import helpers.TestDataHelper;
@@ -18,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UserServiceTest {
     private static final Gson gson = new Gson();
+    private static final ApplicationConfiguration config = Figaro.configure(null);
 
     public static class UserServiceTestSparkApplication implements SparkApplication {
         @Override
@@ -28,7 +31,7 @@ public class UserServiceTest {
 
     @ClassRule
     public static SparkServer<UserServiceTestSparkApplication> testServer =
-            new SparkServer<>(UserServiceTestSparkApplication.class, 4568);
+            new SparkServer<>(UserServiceTestSparkApplication.class, config.getValueAsInt("PORT"));
 
     @Before
     public void setUp(){

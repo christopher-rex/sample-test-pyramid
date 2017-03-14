@@ -11,6 +11,7 @@ import org.junit.Test;
 import spark.servlet.SparkApplication;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class CouponServiceTest {
     private static final ApplicationConfiguration config = Figaro.configure(null);
@@ -28,7 +29,7 @@ public class CouponServiceTest {
 
     @Before
     public void setUp(){
-//        TestDataHelper.cleanDb();
+        TestDataHelper.cleanDb();
     }
 
     @Test
@@ -39,5 +40,27 @@ public class CouponServiceTest {
 
         assertEquals(200, httpResponse.code());
         assertEquals("pong", new String(httpResponse.body()));
+    }
+
+    @Test
+    public void couponReturns404IfNotFound() throws Exception {
+        GetMethod get = testServer.get("/coupons/QWERTY", false);
+
+        HttpResponse httpResponse = testServer.execute(get);
+
+        assertEquals(404, httpResponse.code());
+        assertEquals("", new String(httpResponse.body()));
+    }
+
+    @Test
+    public void couponReturnsCouponDetailsIfFound() throws Exception {
+        String couponId = "ABCXYZ";
+        TestDataHelper.createUnavailableCoupon(couponId, "some-user-id");
+        GetMethod get = testServer.get("/coupons/" + couponId, false);
+
+        HttpResponse httpResponse = testServer.execute(get);
+
+        assertEquals(200, httpResponse.code());
+        assertFalse(new String(httpResponse.body()).isEmpty());
     }
 }

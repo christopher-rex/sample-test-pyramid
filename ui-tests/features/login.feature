@@ -7,7 +7,7 @@ Feature: User login authentication
   Scenario: Verify successful login
     When I login with username "sahil@mail.com" and password "sahil"
     Then I see the notification "Logged in successfully"
-    And I see text "Apply Coupon"
+    And I am on coupon page
 
   @e2e
   Scenario: Verify invalid login

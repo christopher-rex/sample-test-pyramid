@@ -20,3 +20,11 @@ When(/^I login with username "([^"]*)" and password "([^"]*)"$/) do |email, pass
   login_page.login_form.fill_in 'Password', with: password
   login_page.login_form.submit_button.click_button
 end
+
+Then(/^I am redirected to login page$/) do
+  expect(login_page.login_form).to have_text 'Login'
+end
+
+Given(/^I am not logged in$/) do
+  Capybara.page.visit 'http://localhost:8000/#logout'
+end

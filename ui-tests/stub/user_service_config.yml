@@ -7,5 +7,18 @@
    response:
       status: 200
       headers:
-         content-type: text/html
+         Access-Control-Allow-Origin: "*"
       file: ./responses/user_service/valid_email_verified_user.json
+
+
+-  request:
+      method: POST
+      url: ^/login$
+      post: >
+        {"email":"tom@mail.com","password":"tom"}
+
+   response:
+      status: 200
+      headers:
+         Access-Control-Allow-Origin: "*"
+      file: ./responses/user_service/valid_email_unverified_user.json

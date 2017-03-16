@@ -30,10 +30,18 @@ Following is a list of test scenarios related to Login feature,
 
 ## Stubbed tests
 
-Start the user-service stubbed server:
- ```
- java -jar ./stub/stubby4j-3.3.0.jar -d ./stub/user_service_config.yml -s 4567
- ```
+Start stubbed servers for user-service and coupon-service:
+```
+ ./ui-tests/stub/stub.sh start
+```
+Stop the stubbed servers:
+```
+ ./ui-tests/stub/stub.sh stop
+```
+List the stubbed servers:
+```
+ ./ui-tests/stub/stub.sh list
+```
 Run the cucumber tests tagged as @stub:
 ```
 bundle exec cucumber --tags @stub --tags ~@wip

@@ -26,3 +26,16 @@ Following is a list of test scenarios related to Login feature,
 * Verify on providing an email-id of a disabled user and submitting the form, results in appropriate error message
 * Verify on providing an email-id of user whos account is not verified, results in appropriate error message
 * Verify on attempting login with an email-id and wrong password for 3 times, result in user account getting locked
+
+
+## Stubbed tests
+
+Start the user-service stubbed server:
+ ```
+ java -jar ./stub/stubby4j-3.3.0.jar -d ./stub/user_service_config.yml -s 4567
+ ```
+Run the cucumber tests tagged as @stub:
+```
+bundle exec cucumber --tags @stub --tags ~@wip
+```
+

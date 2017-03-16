@@ -16,9 +16,10 @@ Feature: Coupon validation and usage
     When I validate coupon-code "ABCXXX"
     Then I see the notification "No coupon found."
 
-  @wip @stub
+  @stub
   Scenario: Verify validation message for missing coupon-code
     Given I login with username "sahil@mail.com" and password "sahil"
+    And I am on coupon page
     When I validate coupon-code ""
     Then I see the notification "Please fill out this field"
 

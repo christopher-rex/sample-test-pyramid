@@ -1,0 +1,11 @@
+-  request:
+      method: POST
+      url: ^/login$
+      post: >
+        {"email":"sahil@mail.com","password":"sahil"}
+
+   response:
+      status: 200
+      headers:
+         content-type: text/html
+      file: ./responses/user_service/valid_email_verified_user.json

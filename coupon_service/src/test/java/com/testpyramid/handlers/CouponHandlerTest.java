@@ -55,4 +55,18 @@ public class CouponHandlerTest {
         assertFalse(result.isSuccess());
         assertEquals(HttpStatus.NOT_FOUND_404, result.getStatusCode());
     }
+
+    @Test
+    public void returnsNotFoundIfCouponUnavailableForRedemption() throws Exception {
+        String couponId = "coupon-id";
+        when(mockRequest.params("id")).thenReturn(couponId);
+        when(mockCouponRepository.findById(couponId))
+                .thenReturn(null);
+
+        CouponHandler handler = new CouponHandler(mockCouponRepository);
+        HttpResult<Map<String, String>> result = handler.handle(mockRequest);
+
+        assertFalse(result.isSuccess());
+        assertEquals(HttpStatus.NOT_FOUND_404, result.getStatusCode());
+    }
 }

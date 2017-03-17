@@ -10,8 +10,10 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import spark.servlet.SparkApplication;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class CouponServiceTest {
     private static final ApplicationConfiguration config = Figaro.configure(null);
@@ -28,7 +30,7 @@ public class CouponServiceTest {
             new SparkServer<>(CouponServiceTestSparkApplication.class, config.getValueAsInt("PORT"));
 
     @Before
-    public void setUp(){
+    public void setUp() {
         TestDataHelper.cleanDb();
     }
 
@@ -43,6 +45,18 @@ public class CouponServiceTest {
     }
 
     @Test
+    public void couponReturnsCouponDetailsIfActiveAndAvailable() throws Exception {
+        String couponId = "ABCXYZ";
+        TestDataHelper.createCoupon(couponId, Timestamp.from(Instant.now().plusSeconds(86400)).toString(), 10, 1);
+        GetMethod get = testServer.get("/coupons/" + couponId, false);
+
+        HttpResponse httpResponse = testServer.execute(get);
+
+        assertEquals(200, httpResponse.code());
+        assertEquals("{\"id\":\"ABCXYZ\"}", new String(httpResponse.body()));
+    }
+
+    @Test
     public void couponReturns404IfNotFound() throws Exception {
         GetMethod get = testServer.get("/coupons/QWERTY", false);
 
@@ -53,14 +67,28 @@ public class CouponServiceTest {
     }
 
     @Test
-    public void couponReturnsCouponDetailsIfFound() throws Exception {
+    public void couponReturns404IfCouponExpired() throws Exception {
         String couponId = "ABCXYZ";
-        TestDataHelper.createUnavailableCoupon(couponId, "some-user-id");
+        TestDataHelper.createCoupon(couponId, Timestamp.from(Instant.now().minusSeconds(86400)).toString(), 10, 1);
+
         GetMethod get = testServer.get("/coupons/" + couponId, false);
 
         HttpResponse httpResponse = testServer.execute(get);
 
-        assertEquals(200, httpResponse.code());
-        assertFalse(new String(httpResponse.body()).isEmpty());
+        assertEquals(404, httpResponse.code());
+        assertEquals("", new String(httpResponse.body()));
+    }
+
+    @Test
+    public void couponReturns404IfCouponExhausted() throws Exception {
+        String couponId = "ABCXYZ";
+        TestDataHelper.createCoupon(couponId, Timestamp.from(Instant.now().plusSeconds(86400)).toString(), 10, 0);
+
+        GetMethod get = testServer.get("/coupons/" + couponId, false);
+
+        HttpResponse httpResponse = testServer.execute(get);
+
+        assertEquals(404, httpResponse.code());
+        assertEquals("", new String(httpResponse.body()));
     }
 }

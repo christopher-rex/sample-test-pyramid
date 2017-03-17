@@ -5,6 +5,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -16,7 +18,7 @@ public class CouponRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        TestDataHelper.createUnavailableCoupon(couponId, "some-user-id");
+        TestDataHelper.createCoupon(couponId, Timestamp.from(Instant.now()).toString(), 10, 10);
     }
 
     @After
@@ -32,7 +34,7 @@ public class CouponRepositoryTest {
     }
 
     @Test
-    public void findByIdReturnsCouponDetailsIfExists() throws Exception {
+    public void findByIdReturnsAvailableForActiveAvailableCoupon() throws Exception {
         Map<String, String> coupon = couponRepository.findById(couponId);
 
         assertNotNull(coupon);
@@ -40,29 +42,21 @@ public class CouponRepositoryTest {
     }
 
     @Test
-    public void findByIdDoesNotReturnUserId() throws Exception {
-        Map<String, String> coupon = couponRepository.findById(couponId);
+    public void findByIdReturnsUnavailableForExpiredCoupon() throws Exception {
+        String expiredCoupon = "EXP001";
+        TestDataHelper.createCoupon(expiredCoupon, Timestamp.from(Instant.now().minusSeconds(86400)).toString(), 10, 10);
+        Map<String, String> coupon = couponRepository.findById(expiredCoupon);
 
-        assertNotNull(coupon);
-        assertEquals(couponId, coupon.get("id"));
-        assertFalse(coupon.containsKey("user_id"));
+        assertNull(coupon);
     }
 
     @Test
-    public void findByIdReturnsAvailableIfNoUserHasUsedTheCoupon() throws Exception {
-        String couponId = "available-coupon";
-        TestDataHelper.createAvailableCoupon(couponId);
-        Map<String, String> coupon = couponRepository.findById(couponId);
+    public void findByIdReturnsUnavailableForExhaustedCoupon() throws Exception {
+        String exhaustedCoupon = "EXH001";
+        TestDataHelper.createCoupon(exhaustedCoupon, Timestamp.from(Instant.now().plusSeconds(86400)).toString(), 10, 0);
+        Map<String, String> coupon = couponRepository.findById(exhaustedCoupon);
 
-        assertNotNull(coupon);
-        assertEquals(1, coupon.get("available"));
+        assertNull(coupon);
     }
 
-    @Test
-    public void findByIdReturnsUnavailableIfUserHasUsedTheCoupon() throws Exception {
-        Map<String, String> coupon = couponRepository.findById(couponId);
-
-        assertNotNull(coupon);
-        assertEquals(0, coupon.get("available"));
-    }
 }

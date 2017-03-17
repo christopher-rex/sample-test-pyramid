@@ -10,18 +10,13 @@ public class TestDataHelper {
             TestDataHelper.class.getClassLoader().getResource(
                     config.getValueAsString("DB_NAME") + ".db"));
 
-    public static void createAvailableCoupon(String id) {
+    public static void createCoupon(String id, String valid_until, int max_redemptions, int available_redemptions) {
         dbi.withHandle(handle -> {
-            handle.execute("INSERT INTO coupons (id) VALUES ('" + id + "')");
-            return null;
-        });
-    }
-
-    public static void createUnavailableCoupon(String id, String userId) {
-        dbi.withHandle(handle -> {
-            handle.execute("INSERT INTO coupons (id, user_id) VALUES ('"
-                    + id + "', '"
-                    + userId + "')");
+            handle.execute("INSERT INTO coupons (id,valid_until,max_redemptions,available_redemptions) VALUES ('"
+                    + id + "','"
+                    + valid_until + "',"
+                    + max_redemptions + ","
+                    + available_redemptions + ")");
             return null;
         });
     }

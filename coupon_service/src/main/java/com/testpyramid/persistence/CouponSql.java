@@ -9,8 +9,10 @@ import java.util.Map;
 
 @RegisterMapper(DefaultMapper.class)
 public interface CouponSql {
-    @SqlQuery("SELECT id, user_id IS NULL AS available " +
+    @SqlQuery("SELECT id " +
             "FROM coupons " +
-            "WHERE id = :id")
+            "WHERE id = :id " +
+            "AND valid_until >= date('now') " +
+            "AND available_redemptions > 0")
     Map<String, String> findById(@Bind("id") String id);
 }

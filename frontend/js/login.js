@@ -25,6 +25,8 @@ const login = (_ => {
 
 				else notify('error', 'A surprising error occurred.')
 				return new Promise(resolve => resolve())
+			}, _ => {
+				notify('error', 'Unable to connect to the server.')
 			}).then(user => {
 				if (user) {
 					auth.login(user)

@@ -52,6 +52,11 @@ const coupon = (_ => {
 
 			event.target.parentNode.querySelector('.validation-message').innerText =
 				event.target.validationMessage
+		},
+
+		handleLogout() {
+			auth.logout()
+			location.hash = ''
 		}
 	}
 
@@ -67,6 +72,9 @@ const coupon = (_ => {
 			})
 
 			document.addEventListener('invalid', listeners.handleInvalid, true)
+
+			document.querySelector('#logout').addEventListener('click',
+				listeners.handleLogout)
 		},
 
 		cleanup() {
@@ -78,6 +86,9 @@ const coupon = (_ => {
 			})
 
 			document.removeEventListener('invalid', listeners.handleInvalid, true)
+
+			document.querySelector('#logout').removeEventListener('click',
+				listeners.handleLogout)
 		}
 	}
 })()

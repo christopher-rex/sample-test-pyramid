@@ -28,7 +28,9 @@ const coupon = (_ => {
 			}, _ => {
 				notify('error', 'Unable to connect to the server.')
 			}).then(coupon => {
-				notify('success', `Coupon ${coupon.id} is available.`)
+				if (coupon && coupon.id) {
+					notify('success', `Coupon ${coupon.id} is available.`)
+				}
 			})
 		},
 

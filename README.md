@@ -4,46 +4,45 @@ This repository is to demonstrate a TestPyramid implementation, with different a
 
 ## What is TestPyramid?
 
-[Learn from Martin Fowler](https://martinfowler.com/bliki/TestPyramid.html)
+[Learn from Martin Fowler](https://martinfowler.com/bliki/TestPyramid.html) 
 
-## Application under test
+## Application Under Test
 
 The application we have is a scaled-down version of shopping-cart which has login and coupon-validation features.
 
 The application itself has two functional components,
-* Web application layer or simply the UI layer
-* Service Layer
+- A web application layer (simply the UI layer). Code is in [frontend](https://github.com/christopher-rex/sample-test-pyramid/tree/master/frontend)folder
+- A service Layer consisting of two micro-services 
+    - User service which provides user authentication >> Code is in [user_service](https://github.com/christopher-rex/sample-test-pyramid/tree/master/user_service)folder
+    - Coupon service which provides coupon validation >> Code is in [coupon_service](https://github.com/christopher-rex/sample-test-pyramid/tree/master/coupon_service)folder
 
-## Test scenarios
+## Demonstrated Test Layers
 
-Following is a list of test scenarios related to Login feature,
+We have 4 layers of automated testing demonstrated for the application under test. They are
 
-* Verify successful login
-* Verify not providing any input and submitting the form, results in appropriate error message
-* Verify on providing partial input say email-id or password and submitting the form, results in appropriate error message
-* Verify on providing invalid email-id, results in appropriate error message
-* Verify on providing an email-id which does not correspond to a registered user and submitting the form, results in appropriate error message
-* Verify on providing an email-id of a disabled user and submitting the form, results in appropriate error message
-* Verify on providing an email-id of user whos account is not verified, results in appropriate error message
-* Verify on attempting login with an email-id and wrong password for 3 times, result in user account getting locked
+- End-to-End tests written as cucumber scenarios located at [ui-tests](https://github.com/christopher-rex/sample-test-pyramid/tree/master/ui-tests)folder
+- Stubbed tests written as cucumber scenarios located at [ui-tests](https://github.com/christopher-rex/sample-test-pyramid/tree/master/ui-tests)folder
+- Service API (or simply Integration) tests are located within each individual service
+    - User service >> [UserServiceTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/src/test/java/UserServiceTest.java)
+    - Coupon service >> [CouponServiceTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/coupon_service/src/test/java/CouponServiceTest.java)
+- Unit tests (needless to say) are also bundled within each corresponding service
+    - User service 
+        - [LoginHandlerTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/src/test/java/com/testpyramid/handlers/LoginHandlerTest.java)
+        - [UserRepositoryTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/src/test/java/com/testpyramid/persistence/UserRepositoryTest.java)
+    - Coupon service 
+        - [CouponHandlerTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/coupon_service/src/test/java/com/testpyramid/handlers/CouponHandlerTest.java)
+        - [CouponRepositoryTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/coupon_service/src/test/java/com/testpyramid/persistence/CouponRepositoryTest.java)
 
+## Starting the Servers
 
-## Stubbed tests
-
-Start stubbed servers for user-service and coupon-service:
-```
- ./ui-tests/stub/stub.sh start
-```
-Stop the stubbed servers:
-```
- ./ui-tests/stub/stub.sh stop
-```
-List the stubbed servers:
-```
- ./ui-tests/stub/stub.sh list
-```
-Run the cucumber tests tagged as @stub:
-```
-bundle exec cucumber --tags @stub --tags ~@wip
-```
+For ease of use, we have added a bash-script `up` in [frontend](https://github.com/christopher-rex/sample-test-pyramid/tree/master/frontend),[user_service](https://github.com/christopher-rex/sample-test-pyramid/tree/master/user_service),[coupon_service](https://github.com/christopher-rex/sample-test-pyramid/tree/master/coupon_service)folders which will execute the necessary command to start the corresponding server.
+ ```
+  [sample-test-pyramid/user_service]$ ./up
+  [sample-test-pyramid/coupon_service]$ ./up
+  [sample-test-pyramid/frontend]$ ./up
+ ```
+For more details of how to build, test, etc. refer to the README.md file in each of these folders 
+- [README for the User service](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/README.md)
+- [README for the Coupon service](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/README.md)
+- [README for the Webapp](https://github.com/christopher-rex/sample-test-pyramid/blob/master/frontend/README.md) 
 

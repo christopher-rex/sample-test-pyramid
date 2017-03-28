@@ -1,10 +1,13 @@
 # User Service
 
-## Run
+## Start the service
 
 	./up
+    
+## Run Tests and Build
 
-## Build
+	./gradlew clean build
+    
+## Run Tests Only
 
-    ./gradlew clean build
-
+	./gradlew test

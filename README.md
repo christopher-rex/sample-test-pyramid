@@ -20,7 +20,7 @@ The application itself has two functional components,
 
 We have built 4 layers of automated testing. They are,
 
-- End-to-End tests written as cucumber scenarios, located at [ui-tests](https://github.com/christopher-rex/sample-test-pyramid/tree/master/ui-tests) folder
+- End-to-End (E2E) tests written as cucumber scenarios, located at [ui-tests](https://github.com/christopher-rex/sample-test-pyramid/tree/master/ui-tests) folder
 - Stubbed tests written as cucumber scenarios, located at [ui-tests](https://github.com/christopher-rex/sample-test-pyramid/tree/master/ui-tests) folder
 - Service API (or simply Integration) tests written as JUnit tests, located within each individual service
     - User service >> [UserServiceTest.java](https://github.com/christopher-rex/sample-test-pyramid/blob/master/user_service/src/test/java/UserServiceTest.java)

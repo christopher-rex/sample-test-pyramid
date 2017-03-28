@@ -11,7 +11,7 @@ import java.util.Map;
 public interface UserSql {
     @SqlQuery("SELECT id, name, email, active, auth_token, email_verified " +
             "FROM users " +
-            "WHERE email = :email AND password = :password")
+            "WHERE email = :email AND password = :password AND active = 'true'")
     Map<String, String> findByEmailAndPassword(@Bind("email") String email,
                                                @Bind("password") String password);
 }

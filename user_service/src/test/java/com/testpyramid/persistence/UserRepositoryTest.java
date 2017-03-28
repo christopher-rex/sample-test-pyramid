@@ -31,6 +31,14 @@ public class UserRepositoryTest {
     }
 
     @Test
+    public void findByEmailAndPasswordReturnsNullIfUserIsInactive() throws Exception {
+        TestDataHelper.createUser("inactiveUser","inactiveUser@test.com","password", "false", "true");
+        Map<String, String> user = userRepository.findByEmailAndPassword("inactiveUser@test.com", "password");
+
+        assertNull(user);
+    }
+
+    @Test
     public void findByEmailAndPasswordReturnsUserDetailsIfUserExists() throws Exception {
         Map<String, String> user = userRepository.findByEmailAndPassword("test@test.com", "password");
 

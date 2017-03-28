@@ -64,22 +64,6 @@ public class LoginHandlerTest {
         assertEquals("", result.getErrorMessage());
     }
 
-    @Test
-    public void returnsUnauthorizedIfUserIsNotActive() throws Exception {
-        String email = "email";
-        String password = "password";
-
-        when(mockUserRepository.findByEmailAndPassword(email, password))
-                .thenReturn(createResultMap("some name", email, "false"));
-
-        LoginHandler handler = new LoginHandler(mockUserRepository);
-        HttpResult<Map<String, String>> result = handler.handle(mockRequest(email, password));
-
-        assertFalse(result.isSuccess());
-        assertEquals(HttpStatus.UNAUTHORIZED_401, result.getStatusCode());
-        assertEquals("", result.getErrorMessage());
-    }
-
     private Request mockRequest(String email, String password) {
         Request mockRequest = mock(Request.class);
         Map<String, String> requestMap = new HashMap<>();

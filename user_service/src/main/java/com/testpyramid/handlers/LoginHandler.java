@@ -26,10 +26,6 @@ public class LoginHandler implements HandleableRoute<Map<String, String>> {
             return new HttpResult<>(HttpStatus.UNAUTHORIZED_401, "");
         }
 
-        if (result.get("active").equals("false")) {
-            return new HttpResult<>(HttpStatus.UNAUTHORIZED_401, "");
-        }
-
         return new HttpResult<>(result);
     }
 }

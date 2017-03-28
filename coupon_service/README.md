@@ -4,10 +4,10 @@
 
 	./up
     
-## Run Tests and Build
+## Run Tests(Unit & Integration) and Build
 
 	./gradlew clean build
     
-## Run Tests Only
+## Run Tests(Unit & Integration) Only
 
 	./gradlew test

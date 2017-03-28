@@ -3,10 +3,10 @@ When(/^I navigate to coupon page using url "([^"]*)"$/) do |url|
 end
 
 When(/^I validate coupon\-code "([^"]*)"$/) do |coupon|
-  coupon_page.coupon_form.fill_in 'Coupon Code', with: coupon
-  coupon_page.coupon_form.validate_button.click_button
+  coupon_page.fill_in 'Coupon Code', with: coupon
+  coupon_page.validate_button.click_button
 end
 
 And(/^I am on coupon page$/) do
-  expect(coupon_page.coupon_form).to have_text 'Apply Coupon'
+  expect(coupon_page).to have_text 'Apply Coupon'
 end

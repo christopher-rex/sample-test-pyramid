@@ -1,3 +1,2 @@
-coupon_page:
-  coupon_form: '#coupon-form'
-    validate_button: 'button'
+coupon_page: 'body'
+  validate_button: 'button'

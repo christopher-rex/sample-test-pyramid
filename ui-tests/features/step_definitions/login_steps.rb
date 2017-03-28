@@ -8,7 +8,7 @@ When(/^I click on login$/) do
 end
 
 Then(/^I see the (?:error |)notification "([^"]*)"$/) do |expected_text|
-  expect(login_page.login_form.notice).to have_text expected_text
+  expect(login_page.notification_area).to have_text expected_text
 end
 
 Then(/^I see text "([^"]*)"$/) do |expected_text|

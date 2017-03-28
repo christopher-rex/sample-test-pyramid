@@ -7,14 +7,14 @@ Feature: Coupon validation and usage
   Scenario: Verify that valid coupon is successfully validated
     Given I login with username "sahil@mail.com" and password "sahil"
     And I am on coupon page
-    When I validate coupon-code "ABC123"
-    Then I see the notification "Coupon ABC123 is available."
+    When I validate coupon-code "ABC001"
+    Then I see the notification "Coupon ABC001 is a valid coupon."
 
   @e2e
   Scenario: Verify validation error for invalid coupon
     Given I login with username "sahil@mail.com" and password "sahil"
     When I validate coupon-code "ABCXXX"
-    Then I see the notification "No coupon found."
+    Then I see the notification "Coupon ABCXXX is not found."
 
   @stub
   Scenario: Verify validation message for missing coupon-code

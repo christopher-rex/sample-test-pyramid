@@ -15,7 +15,7 @@ const coupon = (_ => {
 				}
 
 				else if (response.status === 404) {
-					notify('warning', `Coupon ${couponId} is not available.`)
+					notify('warning', `Coupon ${couponId} is not found.`)
 					return new Promise(resolve => resolve())
 				}
 
@@ -29,7 +29,7 @@ const coupon = (_ => {
 				notify('error', 'Unable to connect to the server.')
 			}).then(coupon => {
 				if (coupon && coupon.id) {
-					notify('success', `Coupon ${coupon.id} is available.`)
+					notify('success', `Coupon ${coupon.id} is a valid coupon.`)
 				}
 			})
 		},

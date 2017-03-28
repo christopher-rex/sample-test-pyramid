@@ -1,10 +1,13 @@
 # Frontend
 
-## Run
+## Start the Web Server
 
     ./up
 
-## Test
+## Install dependencies 
 
     npm i
+    
+## Run Test
+
     npm t

@@ -4,7 +4,7 @@ end
 
 When(/^I validate coupon\-code "([^"]*)"$/) do |coupon|
   coupon_page.fill_in 'Coupon Code', with: coupon
-  coupon_page.validate_button.click_button
+  coupon_page.validate_button.click
 end
 
 And(/^I am on coupon page$/) do

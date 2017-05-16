@@ -5,14 +5,14 @@ Feature: Coupon validation and usage
 
   @e2e
   Scenario: Verify that valid coupon is successfully validated
-    Given I login with username "sahil@mail.com" and password "sahil"
+    Given I login with username "sahil@mail.com" and password "pass"
     And I am on coupon page
     When I validate coupon-code "ABC001"
     Then I see the notification "Coupon ABC001 is a valid coupon."
 
   @e2e
   Scenario: Verify validation error for invalid coupon
-    Given I login with username "sahil@mail.com" and password "sahil"
+    Given I login with username "sahil@mail.com" and password "pass"
     When I validate coupon-code "ABCXXX"
     Then I see the notification "Coupon ABCXXX is not found."
 
@@ -21,7 +21,7 @@ Feature: Coupon validation and usage
     Given I login with username "sahil@mail.com" and password "sahil"
     And I am on coupon page
     When I validate coupon-code ""
-    Then I see the notification "Please fill out this field"
+    Then I see text "Please fill in this field"
 
   @wip @stub
   Scenario: Verify that the coupon page is NOT accessible without login

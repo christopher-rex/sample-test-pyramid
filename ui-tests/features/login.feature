@@ -5,7 +5,7 @@ Feature: User login authentication
 
   @e2e
   Scenario: Verify successful login
-    When I login with username "sahil@mail.com" and password "sahil"
+    When I login with username "sahil@mail.com" and password "pass"
     Then I see the notification "Logged in successfully"
     And I am on coupon page
 
@@ -17,17 +17,17 @@ Feature: User login authentication
   @stub
   Scenario: Verify validation message for missing email
     When I login with username "" and password "chris"
-    Then I see text "Please fill out this field"
+    Then I see text "Please fill in this field"
 
   @stub
   Scenario: Verify validation message for missing password
     When I login with username "chris@mail.com" and password ""
-    Then I see text "Please fill out this field"
+    Then I see text "Please fill in this field"
 
   @stub
   Scenario: Verify validation message for invalid email
     When I login with username "chris" and password "chris"
-    Then I see text "Please enter an email address"
+    Then I see text "Please include an '@' in the email address. 'chris' is missing an '@'."
 
   @stub
   Scenario: Verify successful login with email verification prompt for user with unverified email

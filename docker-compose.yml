@@ -1,0 +1,29 @@
+version: '3'
+services:
+    user_service:
+        image: gradle
+        ports:
+            - '4567:4567'
+        volumes:
+            - ./user_service:/user_service
+        working_dir: /user_service
+        command: gradle run
+    coupon_service:
+        image: gradle
+        ports:
+            - '5000:5000'
+        volumes:
+            - ./coupon_service:/coupon_service
+        working_dir: /coupon_service
+        command: gradle run
+    frontend:
+        image: node
+        links:
+            - user_service
+            - coupon_service
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./frontend:/frontend
+        working_dir: /frontend
+        command: ./up
